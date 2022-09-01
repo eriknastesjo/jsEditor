@@ -9,8 +9,14 @@ import { IconContext } from 'react-icons'
 function Editor () {
 
     const [content, setContent] = useState("");
+    const [flashMessage, setFlashMessage] = useState("");
     const [col, setCol] = useState("#272727");
     const originalCol = "#272727";
+
+    let timeout;
+    function resetFlashMessage() {
+        setFlashMessage("")
+    }
 
     return (
         <div>
@@ -26,10 +32,14 @@ function Editor () {
                         }}
                         onClick={() => {
                             console.log(content);
+                            setFlashMessage("Text printed in console!");
+                            clearTimeout(timeout);
+                            timeout = setTimeout((resetFlashMessage), 1000);
                         }}
                     />
                 </IconContext.Provider>
             </div>
+            <p className='flash-message'> {flashMessage} </p>
             <div className="edit-prev-container">
                 <div className="editor">
                     <h1>Eriks editor</h1>

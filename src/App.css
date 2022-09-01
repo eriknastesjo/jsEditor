@@ -28,6 +28,12 @@ h2 {
   cursor: pointer;
 }
 
+.flash-message {
+  position: absolute;
+  top: 50px;
+  left: 20px;
+}
+
 /* .ContainerCenter {
   text-align: center;
 }
