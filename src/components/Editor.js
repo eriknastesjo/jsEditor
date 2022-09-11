@@ -1,69 +1,76 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Parse from 'html-react-parser';
-import { FaSave } from 'react-icons/fa';
-import { IconContext } from 'react-icons'
+import docModel from '../models/docModel';
 
 
-function Editor () {
 
+function Editor(props) {
+
+    // todo: ersätt med props.currentDoc och props.setCurrentDoc
+    const [name, setName] = useState("");
     const [content, setContent] = useState("");
-    const [flashMessage, setFlashMessage] = useState("");
-    const [col, setCol] = useState("#272727");
-    const originalCol = "#272727";
+    const [editor, setEditor] = useState(null);
 
-    let timeout;
-    function resetFlashMessage() {
-        setFlashMessage("")
+    function changeName(event) {
+        if (event.target !== undefined) {
+            let currDoc = { ...props.currentDoc };
+            currDoc.name = event.target.value;
+            docModel.updateDoc(currDoc);
+            props.setCurrentDoc(currDoc);
+        }
     }
+
+    function changeContent(event, editor) {
+        const data = editor.getData();
+        setContent(data);
+        console.log({
+            _id: props.currentDoc._id,
+            name: props.currentDoc.name,
+            content: props.currentDoc.content
+        })
+
+        // console.log({
+        //     _id: props.currentDoc._id,
+        //     name: name,
+        //     content: content
+        // })
+
+        // docModel.updateDoc({
+        //     _id: props.currentDoc._id,
+        //     name: name,
+        //     content: content
+        // })
+    }
+
+    useEffect(() => {
+        (async () => {
+            setName(props.currentDoc.name);
+            setContent(props.currentDoc.content);
+            setEditor(<CKEditor
+                editor={ClassicEditor}
+                data={props.currentDoc.content}
+                onReady={editor => {
+                    console.log(editor);
+                }}
+                onChange={changeContent}
+            // onBlur={(event, editor) => {
+            //     console.log('Blur.', editor);
+            // }}
+            // onFocus={(event, editor) => {
+            //     console.log('Focus.', editor);
+            // }}
+            />);
+        })();
+    }, [props.currentDoc]);
 
     return (
         <div>
-            <div className="toolbar">
-                <IconContext.Provider value={{ color: col }}>
-                    <FaSave size={30}
-                        className="toolIcon"
-                        onMouseEnter={() => {
-                            setCol("white");
-                        }}
-                        onMouseLeave={() => {
-                            setCol(originalCol);
-                        }}
-                        onClick={() => {
-                            console.log(content);
-                            setFlashMessage("Text printed in console!");
-                            clearTimeout(timeout);
-                            timeout = setTimeout((resetFlashMessage), 1000);
-                        }}
-                    />
-                </IconContext.Provider>
-            </div>
-            <p className='flash-message'> {flashMessage} </p>
             <div className="edit-prev-container">
                 <div className="editor">
-                    <h1>Eriks editor</h1>
-                    <CKEditor
-                        editor={ClassicEditor}
-                    // data="<p>Hello from CKEditor 5!</p>"
-                    // onReady={editor => {
-                    //     // You can store the "editor" and use when it is needed.
-                    //     console.log('Editor is ready to use!', editor);
-                    // }}
-                    onChange={(event, editor) => {
-                        const data = editor.getData();
-                        setContent(data);
-                        // <div dangerouslySetInnerHTML={{ data }} />
-                        // setContent(dangerouslySetInnerHTML(data));
-                        // console.log({ data });
-                    }}
-                    // onBlur={(event, editor) => {
-                    //     console.log('Blur.', editor);
-                    // }}
-                    // onFocus={(event, editor) => {
-                    //     console.log('Focus.', editor);
-                    // }}
-                    />
+                    <input type="text" className="name" name="name" value={name} onChange={changeName} />
+                    {editor}
                 </div>
                 <div>
                     <h2>Preview</h2>
