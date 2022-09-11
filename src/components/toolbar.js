@@ -6,7 +6,7 @@ import docModel from '../models/docModel';
 
 
 function Toolbar(props) {
-    const [content, setContent] = useState("");
+    const [loader, setLoader] = useState("");   // todo: Uppdatera loader (<select>) när nya docs skapas och ändrar namn
     const [flashMessage, setFlashMessage] = useState("");
     const [col, setCol] = useState("#272727");
     const originalCol = "#272727";
@@ -23,7 +23,6 @@ function Toolbar(props) {
         (async () => {
             const allDocs = await docModel.getAllDocs();
             setDocs(allDocs);
-
         })();
     }, [currentDoc]);
 
@@ -34,8 +33,10 @@ function Toolbar(props) {
 
     async function findDoc() {
         const _id = document.getElementById("select-id-toolbar").value;
-        const result = await docModel.findDoc(_id);
-        props.setCurrentDoc(result);
+        if (_id != -99) {
+            const result = await docModel.findDoc(_id);
+            props.setCurrentDoc(result);
+        }
     }
 
     async function saveDoc() {
@@ -83,7 +84,7 @@ function Toolbar(props) {
                         }}
                     />
 
-                    <select id= "select-id-toolbar" onChange={ findDoc}>
+                    <select id= "select-id-toolbar" onChange={ findDoc }>
                         <option value="-99" key="0">Choose a document</option>
                         {docs.map((doc, index) => <option value={doc._id} key={index}>{doc.name}</option>)}
 
