@@ -26,8 +26,14 @@ function App() {
           <StartMenu currentDoc={currentDoc} setCurrentDoc={setCurrentDoc} />
           :
           <div>
-            <Toolbar currentDoc={currentDoc} setCurrentDoc={setCurrentDoc} currentContent={currentContent} />
-            <Editor currentDoc={currentDoc} setCurrentDoc={setCurrentDoc} setCurrentContent={setCurrentContent} />
+            <Toolbar currentDoc={currentDoc}
+              setCurrentDoc={setCurrentDoc}
+              currentContent={currentContent}
+              />
+            <Editor currentDoc={currentDoc}
+              setCurrentDoc={setCurrentDoc}
+              setCurrentContent={setCurrentContent}
+            />
           </div>
       }
 

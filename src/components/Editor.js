@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Parse from 'html-react-parser';
-import docModel from '../models/docModel';
 
 
 
@@ -18,7 +17,6 @@ function Editor(props) {
 
             let currDoc = { ...props.currentDoc };
             currDoc.name = event.target.value;
-            docModel.updateDoc(currDoc);
 
             props.setCurrentDoc(currDoc);
         }

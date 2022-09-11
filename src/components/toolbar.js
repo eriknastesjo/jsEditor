@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaSave } from 'react-icons/fa';
+import { VscNewFile } from 'react-icons/vsc';
 import { IconContext } from 'react-icons';
 import docModel from '../models/docModel';
 
@@ -22,9 +23,14 @@ function Toolbar(props) {
         (async () => {
             const allDocs = await docModel.getAllDocs();
             setDocs(allDocs);
-            console.log(docs);
+
         })();
     }, [currentDoc]);
+
+    async function newDoc() {
+        const newDoc = await docModel.createDoc();
+        props.setCurrentDoc(newDoc);
+    }
 
     async function findDoc() {
         const _id = document.getElementById("select-id-toolbar").value;
@@ -45,6 +51,21 @@ function Toolbar(props) {
         <div>
             <div className="toolbar">
                 <IconContext.Provider value={{ color: col }}>
+                    <VscNewFile size={30}
+                        className="toolIcon"
+                        onMouseEnter={() => {
+                            // setCol("white");
+                        }}
+                        onMouseLeave={() => {
+                            setCol(originalCol);
+                        }}
+                        onClick={() => {
+                            newDoc();
+                            setFlashMessage("New document created!");
+                            clearTimeout(timeout);
+                            timeout = setTimeout((resetFlashMessage), 1000);
+                        }}
+                    />
                     <FaSave size={30}
                         className="toolIcon"
                         onMouseEnter={() => {
@@ -62,38 +83,12 @@ function Toolbar(props) {
                         }}
                     />
 
-                    {/* <input
-                        onChange={
-                            findDoc
-                        }
-                    >
-
-                    </input> */}
-
-
                     <select id= "select-id-toolbar" onChange={ findDoc}>
                         <option value="-99" key="0">Choose a document</option>
                         {docs.map((doc, index) => <option value={doc._id} key={index}>{doc.name}</option>)}
 
                     </select>
 
-
-
-                    {/* <FaFileDownload size={27}
-                        className="toolIcon"
-                        onMouseEnter={() => {
-                            // setCol("white");
-                        }}
-                        onMouseLeave={() => {
-                            setCol(originalCol);
-                        }}
-                        onClick={() => {
-                            // console.log(content);
-                            // setFlashMessage("Text printed in console!");
-                            // clearTimeout(timeout);
-                            // timeout = setTimeout((resetFlashMessage), 1000);
-                        }}
-                    /> */}
                 </IconContext.Provider>
             </div>
             <p className='flash-message'> {flashMessage} </p>
