@@ -8,16 +8,18 @@ import docModel from '../models/docModel';
 
 function Editor(props) {
 
-    // todo: ersätt med props.currentDoc och props.setCurrentDoc
+
     const [name, setName] = useState("");
     const [content, setContent] = useState("");
     const [editor, setEditor] = useState(null);
 
     function changeName(event) {
         if (event.target !== undefined) {
+
             let currDoc = { ...props.currentDoc };
             currDoc.name = event.target.value;
             docModel.updateDoc(currDoc);
+
             props.setCurrentDoc(currDoc);
         }
     }
@@ -25,23 +27,7 @@ function Editor(props) {
     function changeContent(event, editor) {
         const data = editor.getData();
         setContent(data);
-        console.log({
-            _id: props.currentDoc._id,
-            name: props.currentDoc.name,
-            content: props.currentDoc.content
-        })
-
-        // console.log({
-        //     _id: props.currentDoc._id,
-        //     name: name,
-        //     content: content
-        // })
-
-        // docModel.updateDoc({
-        //     _id: props.currentDoc._id,
-        //     name: name,
-        //     content: content
-        // })
+        props.setCurrentContent(data);
     }
 
     useEffect(() => {

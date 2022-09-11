@@ -11,6 +11,7 @@ import StartMenu from './components/startMenu';
 function App() {
 
   const [currentDoc, setCurrentDoc] = useState(null);
+  const [currentContent, setCurrentContent] = useState(null);
 
   return (
     <div className="App">
@@ -25,8 +26,8 @@ function App() {
           <StartMenu currentDoc={currentDoc} setCurrentDoc={setCurrentDoc} />
           :
           <div>
-            <Toolbar currentDoc={currentDoc} setCurrentDoc={setCurrentDoc} />
-            <Editor currentDoc={currentDoc} setCurrentDoc={setCurrentDoc} />
+            <Toolbar currentDoc={currentDoc} setCurrentDoc={setCurrentDoc} currentContent={currentContent} />
+            <Editor currentDoc={currentDoc} setCurrentDoc={setCurrentDoc} setCurrentContent={setCurrentContent} />
           </div>
       }
 

@@ -32,6 +32,14 @@ function Toolbar(props) {
         props.setCurrentDoc(result);
     }
 
+    async function saveDoc() {
+        let currDoc = { ...props.currentDoc };
+        currDoc.content = props.currentContent;
+        await docModel.updateDoc(currDoc);
+
+        props.setCurrentDoc(currDoc);
+    }
+
 
     return (
         <div>
@@ -46,8 +54,9 @@ function Toolbar(props) {
                             setCol(originalCol);
                         }}
                         onClick={() => {
-                            console.log(content);
-                            setFlashMessage("Text printed in console!");
+                            // console.log(content);
+                            saveDoc();
+                            setFlashMessage("Content saved!");
                             clearTimeout(timeout);
                             timeout = setTimeout((resetFlashMessage), 1000);
                         }}
