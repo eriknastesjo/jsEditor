@@ -1,3 +1,4 @@
 {
-    "base_url": "https://jsramverk-editor-erna21.azurewebsites.net/"
+    "base_url": "http://localhost:1337",
+    "base_url_save_but_not_use": "https://jsramverk-editor-erna21.azurewebsites.net"
 }
