@@ -8,7 +8,7 @@ const docModel = {
             content: ""
         };
 
-        const response = await fetch(`${config.base_url}/`, {
+        const response = await fetch(`${config.base_url}/insert`, {
             body: JSON.stringify(newDoc),
             headers: {
                 'content-type': 'application/json'
