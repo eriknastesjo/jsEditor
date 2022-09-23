@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import { CKEditor } from '@ckeditor/ckeditor5-react';
 // import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Parse from 'html-react-parser';
+// import { TrixEditor } from "react-trix";
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -19,9 +20,6 @@ function Editor(props) {
     // =====================================
 
     props.socket.on("content", function (data) {
-        // console.log(data);
-        // setContent(data);
-
         setEditorContent(data, false);
     });
 
@@ -39,18 +37,12 @@ function Editor(props) {
         updateCurrentDocOnChange = true;
     }
 
-    function setEditorContent(content, triggerChange) {
-        // let editor = document.querySelector("quill");
-        // let editor = document.getElementsByClassName('quilly')[0];
-        let editor = document.querySelector("trix-editor");
-
-        console.log(editor);
+    function setEditorContent(html, triggerChange) {
+        let editor = document.getElementsByClassName('ql-editor')[0];
 
         updateCurrentDocOnChange = triggerChange;
-        editor.value = "";
-        // element.editor.setSelectedRange([0, 0]);
+        editor.innerHTML = html;
         updateCurrentDocOnChange = triggerChange;
-        // element.editor.insertHTML(content);
     }
 
     // =====================================
@@ -132,7 +124,9 @@ function Editor(props) {
             <div className="edit-prev-container">
                 <div className="editor">
                     <input type="text" className="name" name="name" value={name} onChange={changeName} />
+                    {/* <ReactQuill theme="snow" value="" class="quilly" /> */}
                     <ReactQuill theme="snow" value={content} onChange={changeContent} class="quilly" />
+                    {/* <TrixEditor value={content} /> */}
                     {/* {editor} */}
                 </div>
                 <div>

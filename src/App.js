@@ -27,6 +27,11 @@ function App() {
     }
   }, []);
 
+  if (socket && currentDoc) {
+    console.log("ROOM");
+    socket.emit("create", currentDoc["_id"]);
+  }
+
   // if (socket) {
   //   socket.on("content", function (data) {
   //     console.log(data);
