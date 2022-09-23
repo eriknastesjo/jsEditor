@@ -6,6 +6,8 @@ import Editor from './components/editor';
 import Toolbar from './components/toolbar';
 import StartMenu from './components/startMenu';
 
+import { io } from "socket.io-client";
+
 
 
 function App() {
@@ -13,26 +15,53 @@ function App() {
   const [currentDoc, setCurrentDoc] = useState(null);
   const [currentContent, setCurrentContent] = useState(null);
 
+  const [socket, setSocket] = useState(null);
+
+  useEffect(() => {
+    setSocket(io("http://localhost:1337/"));
+    if (socket) {
+      return () => {
+        // todo: ta reda på vad disconnet gör??
+        socket.disconnect();
+      }
+    }
+  }, []);
+
+  // if (socket) {
+  //   socket.on("content", function (data) {
+  //     console.log(data);
+  //   });
+  // }
+
+
   return (
     <div className="App">
 
-{/*
-      <Toolbar />
-      <Editor /> */}
+
+      {/* <Toolbar /> */}
+      {/* <Editor /> */}
 
 
       {
         currentDoc == null ?
-          <StartMenu currentDoc={currentDoc} setCurrentDoc={setCurrentDoc} />
+          <StartMenu
+            currentDoc={currentDoc}
+            setCurrentDoc={setCurrentDoc}
+            socket={socket}
+          />
           :
           <div>
-            <Toolbar currentDoc={currentDoc}
+            <Toolbar
+              currentDoc={currentDoc}
               setCurrentDoc={setCurrentDoc}
               currentContent={currentContent}
+              socket={socket}
               />
-            <Editor currentDoc={currentDoc}
+            <Editor
+              currentDoc={currentDoc}
               setCurrentDoc={setCurrentDoc}
               setCurrentContent={setCurrentContent}
+              socket={socket}
             />
           </div>
       }
