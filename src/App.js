@@ -13,7 +13,6 @@ import { io } from "socket.io-client";
 function App() {
 
   const [currentDoc, setCurrentDoc] = useState(null);
-  const [currentContent, setCurrentContent] = useState(null);
 
   const [socket, setSocket] = useState(null);
 
@@ -59,13 +58,11 @@ function App() {
             <Toolbar
               currentDoc={currentDoc}
               setCurrentDoc={setCurrentDoc}
-              currentContent={currentContent}
               socket={socket}
               />
             <Editor
               currentDoc={currentDoc}
               setCurrentDoc={setCurrentDoc}
-              setCurrentContent={setCurrentContent}
               socket={socket}
             />
           </div>

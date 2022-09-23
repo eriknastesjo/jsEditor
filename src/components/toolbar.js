@@ -40,11 +40,25 @@ function Toolbar(props) {
     }
 
     async function saveDoc() {
-        let currDoc = { ...props.currentDoc };
-        currDoc.content = props.currentContent;
-        await docModel.updateDoc(currDoc);
+        const nameHolder = document.getElementsByClassName('name')[0];
+        const contentHolder = document.getElementsByClassName('ql-editor')[0];
 
-        props.setCurrentDoc(currDoc);
+        const docSave = {
+            "_id": props.currentDoc["_id"],
+            "name": nameHolder.value,
+            "content": contentHolder.innerHTML
+        }
+
+        console.log(docSave);
+
+        // let currDoc = { ...props.currentDoc };
+        // currDoc.content = props.currentContent;
+
+        // await docModel.updateDoc(currDoc);
+
+        await docModel.updateDoc(docSave);
+
+        // props.setCurrentDoc(currDoc);
     }
 
 

@@ -11,13 +11,16 @@ import 'react-quill/dist/quill.snow.css';
 
 function Editor(props) {
 
-
     const [name, setName] = useState("");
     const [content, setContent] = useState("");
     // const [editor, setEditor] = useState(null);
     let updateCurrentDocOnChange = true;
 
     // =====================================
+
+    props.socket.on("content", function (data) {
+        setEditorContent(data, false);
+    });
 
     props.socket.on("content", function (data) {
         setEditorContent(data, false);
@@ -31,10 +34,18 @@ function Editor(props) {
 
             // setCurrentDoc(copy);
             setContent(html);
-            props.setCurrentContent(html);
+            // props.setCurrentContent(html);
         }
 
         updateCurrentDocOnChange = true;
+    }
+
+    function setEditorName(name, triggerChange) {
+        let editName = document.getElementsByClassName('name')[0];
+
+        updateCurrentDocOnChange = triggerChange;
+        editName.value = name;
+        updateCurrentDocOnChange = triggerChange;
     }
 
     function setEditorContent(html, triggerChange) {
@@ -95,24 +106,32 @@ function Editor(props) {
 
 
     useEffect(() => {
-        (async () => {
-            setName(props.currentDoc.name);
-            setContent(props.currentDoc.content);
-            // setEditor(<CKEditor
-            //     editor={ClassicEditor}
-            //     data={props.currentDoc.content}
-            //     onReady={editor => {
-            //         console.log(editor);
-            //     }}
-            //     onChange={changeContent}
-            // // onBlur={(event, editor) => {
-            // //     console.log('Blur.', editor);
-            // // }}
-            // // onFocus={(event, editor) => {
-            // //     console.log('Focus.', editor);
-            // // }}
-            // />);
-        })();
+        // console.log(props.currentDoc.content)
+        // setEditorName(props.currentDoc.name);
+        // setEditorContent(props.currentDoc.content);
+
+        setName(props.currentDoc.name);
+        setContent(props.currentDoc.content);
+
+        // (async () => {
+        //     // setName(props.currentDoc.name);
+        //     // setContent(props.currentDoc.content);
+
+        //     // setEditor(<CKEditor
+        //     //     editor={ClassicEditor}
+        //     //     data={props.currentDoc.content}
+        //     //     onReady={editor => {
+        //     //         console.log(editor);
+        //     //     }}
+        //     //     onChange={changeContent}
+        //     // // onBlur={(event, editor) => {
+        //     // //     console.log('Blur.', editor);
+        //     // // }}
+        //     // // onFocus={(event, editor) => {
+        //     // //     console.log('Focus.', editor);
+        //     // // }}
+        //     // />);
+        // })();
     }, [props.currentDoc]);
 
     // useEffect(() => {
@@ -130,8 +149,8 @@ function Editor(props) {
                     {/* {editor} */}
                 </div>
                 <div>
-                    <h2>Preview</h2>
-                    <div>{Parse(content)}</div>
+                    {/* <h2>Preview</h2>
+                    <div>{Parse(content)}</div> */}
                 </div>
             </div>
         </div>
