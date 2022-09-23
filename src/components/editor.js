@@ -11,20 +11,29 @@ import 'react-quill/dist/quill.snow.css';
 
 function Editor(props) {
 
-    const [name, setName] = useState("");
+    // const [name, setName] = useState(""); *****
+
     const [content, setContent] = useState("");
     // const [editor, setEditor] = useState(null);
     let updateCurrentDocOnChange = true;
 
-    // =====================================
+
+
+    // props.socket.on("name", function (data) {    ****
+    //     setEditorName(data.name, false);
+    // });
 
     props.socket.on("content", function (data) {
-        setEditorContent(data, false);
+        setEditorContent(data.content, false);
     });
 
-    props.socket.on("content", function (data) {
-        setEditorContent(data, false);
-    });
+
+    // function changeName(event) {
+    //     if (event.target !== undefined && updateCurrentDocOnChange) {    *****
+    //         setName(event.target.value);
+    //     }
+    //     updateCurrentDocOnChange = true;
+    // }
 
     function changeContent(html) {
         if (updateCurrentDocOnChange) {
@@ -40,13 +49,13 @@ function Editor(props) {
         updateCurrentDocOnChange = true;
     }
 
-    function setEditorName(name, triggerChange) {
-        let editName = document.getElementsByClassName('name')[0];
+    // function setEditorName(name, triggerChange) {            ***********
+    //     let editName = document.getElementsByClassName('name')[0];
 
-        updateCurrentDocOnChange = triggerChange;
-        editName.value = name;
-        updateCurrentDocOnChange = triggerChange;
-    }
+    //     updateCurrentDocOnChange = triggerChange;
+    //     editName.value = name;
+    //     updateCurrentDocOnChange = triggerChange;
+    // }
 
     function setEditorContent(html, triggerChange) {
         let editor = document.getElementsByClassName('ql-editor')[0];
@@ -56,94 +65,43 @@ function Editor(props) {
         updateCurrentDocOnChange = triggerChange;
     }
 
-    // =====================================
+    // useEffect(() => {        *********
+    //     const data = {
+    //         _id: props.currentDoc._id,
+    //         name: name
+    //     }
+    //     // console.log(currDoc);
+    //     props.socket.emit("name", data);
 
-    function changeName(event) {
-        if (event.target !== undefined) {
-
-            let currDoc = { ...props.currentDoc };
-            currDoc.name = event.target.value;
-
-            props.setCurrentDoc(currDoc);
-        }
-    }
-
-    // function changeContent(event, editor) {
-    //     // console.log(event);
-
-    //     // **
-    //     // const editorChildren = document.getElementsByClassName('ql-editor')[0].childNodes;
-    //     // // console.log(editorChildren);
-    //     // let htmlCollection = "";
-    //     // for (let i = 0; i < editorChildren.length; i++) {
-    //     //     console.log(editorChildren[i].outerHTML);
-    //     //     htmlCollection += editorChildren[i];
-    //     // }
-    //     // console.log(htmlCollection);
-    //     // setContent(newContent);
-
-    //     // **
-    //     // OBS: med denna metod (som blir nödvändig med onKeyUp så fås bara p taggen ut)
-    //     // var p = document.querySelector(".ql-editor p");
-    //     // console.log(p);
-    //     // setContent(p);
-    //     // props.setCurrentContent(p);
-
-    //     // **
-    //     setContent(event);
-    //     props.setCurrentContent(event);
-    //     console.log(event);
-
-    //     // **
-    //     // setContent(data);
-    //     // props.setCurrentContent(data);
-    //     // console.log("content changed");
-    // }
+    //     // props.socket.emit("content", content);
+    // }, [name]);
 
     useEffect(() => {
-        props.socket.emit("content", content);
+        const data = {
+            _id: props.currentDoc._id,
+            content: content
+        }
+        // console.log(currDoc);
+        props.socket.emit("content", data);
+
+        // props.socket.emit("content", content);
     }, [content]);
 
 
     useEffect(() => {
-        // console.log(props.currentDoc.content)
         // setEditorName(props.currentDoc.name);
         // setEditorContent(props.currentDoc.content);
 
-        setName(props.currentDoc.name);
+        // setName(props.currentDoc.name);
         setContent(props.currentDoc.content);
 
-        // (async () => {
-        //     // setName(props.currentDoc.name);
-        //     // setContent(props.currentDoc.content);
-
-        //     // setEditor(<CKEditor
-        //     //     editor={ClassicEditor}
-        //     //     data={props.currentDoc.content}
-        //     //     onReady={editor => {
-        //     //         console.log(editor);
-        //     //     }}
-        //     //     onChange={changeContent}
-        //     // // onBlur={(event, editor) => {
-        //     // //     console.log('Blur.', editor);
-        //     // // }}
-        //     // // onFocus={(event, editor) => {
-        //     // //     console.log('Focus.', editor);
-        //     // // }}
-        //     // />);
-        // })();
     }, [props.currentDoc]);
-
-    // useEffect(() => {
-    //     console.log("POOOP");
-    // }, [content]);
 
     return (
         <div>
             <div className="edit-prev-container">
                 <div className="editor">
-                    <input type="text" className="name" name="name" value={name} onChange={changeName} />
-                    {/* <ReactQuill theme="snow" value="" class="quilly" /> */}
+                    {/* <input type="text" className="name" name="name" value={name} onChange={changeName} /> ******* */}
                     <ReactQuill theme="snow" value={content} onChange={changeContent} class="quilly" />
                     {/* <TrixEditor value={content} /> */}
                     {/* {editor} */}
