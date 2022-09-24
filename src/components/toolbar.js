@@ -101,12 +101,8 @@ function Toolbar(props) {
                     <select id= "select-id-toolbar" onChange={ findDoc }>
                         <option value="-99" key="0">Choose a document</option>
                         {docs.map((doc, index) => <option value={doc._id} key={index}>{doc.name}</option>)}
-                    </select>
 
-                    <form class="change-name">
-                        <p>Change name:</p>
-                        <input type="text" class="name-id-toolbar" name="name" value={props.currentDoc.name} />
-                    </form>
+                    </select>
 
                 </IconContext.Provider>
             </div>
