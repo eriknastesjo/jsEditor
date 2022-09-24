@@ -34,6 +34,8 @@ function Toolbar(props) {
     async function findDoc() {
         const _id = document.getElementById("select-id-toolbar").value;
         if (_id != -99) {
+            console.log("LEAVING ROOM");
+            props.socket.emit("leave", props.currentDoc["_id"]);
             const result = await docModel.findDoc(_id);
             props.setCurrentDoc(result);
         }

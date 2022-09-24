@@ -27,8 +27,8 @@ function App() {
   }, []);
 
   if (socket && currentDoc) {
-    console.log("ROOM");
-    socket.emit("create", currentDoc["_id"]);
+    console.log("JOINING ROOM");
+    socket.emit("join", currentDoc["_id"]);
   }
 
   // if (socket) {
