@@ -2,6 +2,8 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 
+import config from './config/config.json';
+
 import Editor from './components/editor';
 import Toolbar from './components/toolbar';
 import StartMenu from './components/startMenu';
@@ -16,11 +18,11 @@ function App() {
 
   const [socket, setSocket] = useState(null);
 
+  // CLIENT
   useEffect(() => {
-    setSocket(io("http://localhost:1337/"));
+    setSocket(io(config.base_url));
     if (socket) {
       return () => {
-        // todo: ta reda på vad disconnet gör??
         socket.disconnect();
       }
     }

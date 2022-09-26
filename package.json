@@ -25,7 +25,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "npm run build && rsync -av --delete build/ erna21@ssh.student.bth.se:www/editor"
+    "deploy": "npm run build && chmod -R 755 build/ && rsync -av --delete build/ erna21@ssh.student.bth.se:www/editor "
   },
   "eslintConfig": {
     "extends": [
