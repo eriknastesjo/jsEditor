@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 // import { CKEditor } from '@ckeditor/ckeditor5-react';
 // import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import Parse from 'html-react-parser';
 // import { TrixEditor } from "react-trix";
+
+// import Parse from 'html-react-parser';
+
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 
 
-function Editor(props) {
+export default function Editor(props) {
 
     const [name, setName] = useState("");
 
@@ -95,7 +97,7 @@ function Editor(props) {
     }
 
 
-    // NÄR STATET CURRENTDOC ÄNDRAS (LADDAS FRÅN TOOLBAR) SÅ SÄTTS STATES NAME OCH CONTENT
+    // NÄR STATE CURRENTDOC ÄNDRAS (LADDAS FRÅN TOOLBAR) SÅ SÄTTS STATES NAME OCH CONTENT
     // =========================================
 
     useEffect(() => {
@@ -106,6 +108,10 @@ function Editor(props) {
         setContent(props.currentDoc.content);
 
     }, [props.currentDoc]);
+
+
+    // RENDER
+    // =========================================
 
     return (
         <div>
@@ -125,4 +131,4 @@ function Editor(props) {
     );
 }
 
-export default Editor;
+

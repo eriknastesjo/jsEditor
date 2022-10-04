@@ -12,9 +12,12 @@ import { io } from "socket.io-client";
 
 
 
-function App() {
+export default function App() {
 
   const [currentDoc, setCurrentDoc] = useState(null);
+
+  const [currentUser, setCurrentUser] = useState(null);
+  const [currentToken, setCurrentToken] = useState("");
 
   const [socket, setSocket] = useState(null);
 
@@ -33,12 +36,6 @@ function App() {
     socket.emit("join", currentDoc["_id"]);
   }
 
-  // if (socket) {
-  //   socket.on("content", function (data) {
-  //     console.log(data);
-  //   });
-  // }
-
 
   return (
     <div className="App">
@@ -47,17 +44,22 @@ function App() {
       {/* <Toolbar /> */}
       {/* <Editor /> */}
 
-
       {
         currentDoc == null ?
           <StartMenu
+            currentToken={currentToken}
+            setCurrentToken={setCurrentToken}
             currentDoc={currentDoc}
             setCurrentDoc={setCurrentDoc}
+            currentUser={currentUser}
+            setCurrentUser={setCurrentUser}
             socket={socket}
           />
           :
           <div>
             <Toolbar
+              currentToken={currentToken}
+              currentUser={currentUser}
               currentDoc={currentDoc}
               setCurrentDoc={setCurrentDoc}
               socket={socket}
@@ -74,4 +76,3 @@ function App() {
   )
 }
 
-export default App;

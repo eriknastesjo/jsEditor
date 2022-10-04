@@ -13,14 +13,23 @@ h2 {
 
 .start-menu {
   position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.startmenu-flash-message {
+  position: absolute;
+  left: 50%;
+  bottom: -40%;
+  font-style: italic;
+  transform: translate(-50%, -50%);
 }
 
 .welcome {
   border-bottom: 6px solid #9c9c9c;
+  margin-bottom: 30px;
 }
 
 .name {
@@ -42,18 +51,66 @@ h2 {
   margin-bottom: 60px;
   background-color: rgb(189, 189, 189);
   display: flex;
+  justify-content: space-between;
   align-items: center;
+}
+
+.toolbar-left {
+  display: flex;
   padding: 0 40px;
   gap: 30px;
+}
+
+.toolbar-right {
+  padding-right: 50px;
 }
 
 .toolIcon:hover {
   cursor: pointer;
 }
 
-.flash-message {
+.toolbar-flash-message {
   position: absolute;
   top: 50px;
   left: 20px;
   font-style: italic;
+}
+
+.login-field-container {
+  margin-bottom: 16px;
+}
+
+.login-field-label {
+  padding-right: 10px;
+}
+
+.login-field {
+  border: none;
+  border-bottom: 1px solid rgb(148, 148, 148);
+  margin: auto;
+  margin-right: 20px;
+  /* display: block; */
+}
+
+.login-field:focus {
+  /* border: none;
+  border-bottom: 1px solid rgb(148, 148, 148); */
+  outline: none;
+}
+
+.login-submit {
+  margin: 0 10px;
+  border-radius: 4px;
+  padding: 2px 5px;
+}
+.login-submit:hover {
+  cursor: pointer;
+}
+
+#login-login {
+  background-color: rgb(163, 255, 174);
+}
+
+#login-register {
+  background-color: rgb(163, 255, 252);
 }

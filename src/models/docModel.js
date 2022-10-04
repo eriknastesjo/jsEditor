@@ -1,9 +1,10 @@
 import config from '../config/config.json';
 
 const docModel = {
-    createDoc: async function createDoc() {
+    createDoc: async function createDoc(user) {
 
         const newDoc = {
+            allowed_users: [user],
             name: "New document",
             content: ""
         };
@@ -20,12 +21,36 @@ const docModel = {
         return result.data.result;
 
     },
-    getAllDocs: async function getAllDocs() {
+    getAllDocs: async function getAllDocs(user, token) {
 
-        const response = await fetch(`${config.base_url}/`);
-        const result = await response.json();
+        if (token !== "") {     // todo: ändra till att kolla om result innehåller data och annars skicka felmeddelandet som i authmodel
+            const reqUser = {
+                user: user
+            };
 
-        return result.data.result;
+            const response = await fetch(`${config.base_url}/findUsersDocs`, {
+                body: JSON.stringify(reqUser),
+                headers: {
+                    "x-access-token": token,
+                    'content-type': 'application/json'
+                },
+                method: 'POST'
+            })
+            const result = await response.json();
+
+            return result.data.result;
+        }
+
+
+
+        // const response = await fetch(`${config.base_url}/`, {
+        //     headers: {
+        //         "x-access-token": token
+        //     }
+        // });
+        // const result = await response.json();
+
+
 
     },
     updateDoc: async function updateDoc(doc) {
