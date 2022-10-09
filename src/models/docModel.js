@@ -69,20 +69,52 @@ const docModel = {
     },
     findDoc: async function findDoc(id) {
 
-        const searchId = {
-            _id: id,
-        };
+        // Utan att använda graphql
+        // ==========================
 
-        const response = await fetch(`${config.base_url}/find`, {
-            body: JSON.stringify(searchId),
+        // const searchId = {
+        //     _id: id,
+        // };
+
+        // const response = await fetch(`${config.base_url}/find`, {
+        //     body: JSON.stringify(searchId),
+        //     headers: {
+        //         'content-type': 'application/json'
+        //     },
+        //     method: 'POST'
+        // })
+
+        // const result = await response.json();
+
+        // return result.data.result;
+
+        // Använder graphql
+        // ==========================
+
+        // Observera, vi slipper hämta allowed_users som vi inte behöver här!
+
+        const response = await fetch(`${config.base_url}/graphql`, {
+            body: JSON.stringify({
+                query: `{
+                    doc (_id: "${id}")
+                    {
+                        _id
+                        name
+                        content
+                    }
+                }`
+            }),
             headers: {
-                'content-type': 'application/json'
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
             },
             method: 'POST'
         })
+
         const result = await response.json();
 
-        return result.data.result;
+
+        return result.data.doc;
 
     },
 };
