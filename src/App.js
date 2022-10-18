@@ -11,7 +11,6 @@ import StartMenu from './components/startMenu';
 import { io } from "socket.io-client";
 
 
-
 export default function App() {
 
   const [currentDoc, setCurrentDoc] = useState(null);
@@ -39,10 +38,6 @@ export default function App() {
 
   return (
     <div className="App">
-
-
-      {/* <Toolbar /> */}
-      {/* <Editor /> */}
 
       {
         currentDoc == null ?

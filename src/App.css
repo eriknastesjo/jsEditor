@@ -48,7 +48,7 @@ h2 {
 
 .toolbar {
   height: 60px;
-  margin-bottom: 60px;
+  margin-bottom: 80px;
   background-color: rgb(189, 189, 189);
   display: flex;
   justify-content: space-between;

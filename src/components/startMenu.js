@@ -111,7 +111,7 @@ export default function StartMenu(props) {
                 {
                     props.currentToken == "" ?
                         <div>
-                            <h1 className='welcome'>Welcome to Eriks Editor</h1>
+                            <h1 className='welcome'>Welcome to Erik's Editor</h1>
                             <form>
                                 <div className='login-field-container'>
                                     <label htmlFor='email' className='login-field-label'>E-mail:</label>

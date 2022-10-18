@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { FaSave } from 'react-icons/fa';
 import { VscNewFile } from 'react-icons/vsc';
+import { AiFillPrinter, AiFillFilePdf } from 'react-icons/ai';
 import { IconContext } from 'react-icons';
 import docModel from '../models/docModel';
+
+import pdf from "./pdf";
 
 
 export default function Toolbar(props) {
@@ -12,6 +15,8 @@ export default function Toolbar(props) {
     const [currentDoc, setCurrentDoc] = useState([]);   // is called first
     const [docs, setDocs] = useState([]);   // is called second to make sure currentDoc has updated
     const [dropDownDocs, setDropDownDocs] = useState(null); // todo: Uppdatera loader (<select>) när nya docs skapas och ändrar namn
+
+
 
     let timeout;
     function resetFlashMessage() {
@@ -108,7 +113,23 @@ export default function Toolbar(props) {
                                 timeout = setTimeout((resetFlashMessage), 1000);
                             }}
                         />
+                        <AiFillPrinter size={30}
+                            className="toolIcon"
+                            onMouseEnter={() => {
+                                // setCol("white");
+                            }}
+                            onMouseLeave={() => {
+                                setCol(originalCol);
+                            }}
+                            onClick={() => {
+                                // window.open("data:application/txt," + encodeURIComponent("Testing"), "_self");
+                                pdf.download();
+                            }}
+                        />
                         {dropDownDocs}
+                        {/* <PdfLink/> */}
+
+
 
                         {/* <select id= "select-id-toolbar" onChange={ findDoc }>
                             <option value="-99" key="0">Choose a document</option>
