@@ -38,6 +38,9 @@ const docModel = {
             })
             const result = await response.json();
 
+            console.log("HÄÄÄR");
+            console.log(result.data.result);
+
             return result.data.result;
         }
 
@@ -101,6 +104,11 @@ const docModel = {
                         _id
                         name
                         content
+                        comments {
+                        user
+                        commentNum
+                        comment
+                        }
                     }
                 }`
             }),
@@ -116,7 +124,33 @@ const docModel = {
 
         return result.data.doc;
 
-    },
+    }
+    // findComments: async function findComments() {
+    //     const response = await fetch(`${config.base_url}/graphql`, {
+    //         body: JSON.stringify({
+    //             query: `{
+    //                 doc (_id: "${id}")
+    //                 {
+    //                     comments {
+    //                     user
+    //                     commentNum
+    //                     comment
+    //                     }
+    //                 }
+    //             }`
+    //         }),
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'Accept': 'application/json',
+    //         },
+    //         method: 'POST'
+    //     })
+
+    //     const result = await response.json();
+
+
+    //     return result.data.doc;
+    // }
 };
 
 

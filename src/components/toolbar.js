@@ -63,14 +63,14 @@ export default function Toolbar(props) {
 
         const commentUsers = document.getElementsByClassName('comment-user');
         const commentNums = document.getElementsByClassName('comments-comment-num');
-        const comments = document.getElementsByClassName('comments-comment');
+        const comment = document.getElementsByClassName('comments-comment');
 
         let commentArr = [];
-        for (let i = 0; i < comments.length; i++) {
+        for (let i = 0; i < comment.length; i++) {
             commentArr[i] = {
                 "user": commentUsers[i].innerHTML,
                 "commentNum": commentNums[i].value,
-                "comments": comments[i].value
+                "comment": comment[i].value
             }
         }
         console.log(commentArr);
@@ -81,7 +81,7 @@ export default function Toolbar(props) {
             "_id": props.currentDoc["_id"],
             "name": nameHolder.value,
             "content": contentHolder.innerHTML,
-            "comments": commentArr
+            "comment": commentArr
         }
 
         // let currDoc = { ...props.currentDoc };

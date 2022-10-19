@@ -20,7 +20,7 @@ export default function StartMenu(props) {
 
     useEffect(() => {
         (async () => {
-            const allDocs = await docModel.getAllDocs(props.currentUser, props.currentToken);    // TODO::::::::::::::::::::
+            const allDocs = await docModel.getAllDocs(props.currentUser, props.currentToken);
             setDocs(allDocs);
         })();
     }, [props.currentToken]);
@@ -65,12 +65,12 @@ export default function StartMenu(props) {
 
     async function findDoc() {
         const _id = document.getElementById("select-id-startmenu").value;
-        const result = await docModel.findDoc(_id);         // TODO::::::::::::::::::::
+        const result = await docModel.findDoc(_id);
         props.setCurrentDoc(result);
     }
 
     async function newDoc () {
-        const newDoc = await docModel.createDoc(props.currentUser);          // TODO::::::::::::::::::::
+        const newDoc = await docModel.createDoc(props.currentUser);
         props.setCurrentDoc(newDoc);
     }
 

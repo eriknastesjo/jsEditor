@@ -9,11 +9,7 @@ import React, { useState, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-import { AiOutlinePlusCircle, AiOutlineMinusSquare } from 'react-icons/ai';
-import { TiDeleteOutline } from 'react-icons/ti';
-
-
-
+import Comments from './comments';
 
 
 
@@ -22,8 +18,7 @@ export default function Editor(props) {
 
     const [name, setName] = useState("");
     const [content, setContent] = useState("");
-
-    const [comments, setComments] = useState("");
+    // const [comments, setComments] = useState("");
     // const [editor, setEditor] = useState(null);
     let updateCurrentDocOnChange = true;
 
@@ -116,50 +111,57 @@ export default function Editor(props) {
         setName(props.currentDoc.name);
         setContent(props.currentDoc.content);
 
-        setComments(
-            <div>
-                <h1 className='comments-title'>Comments</h1>
-                <div className='comments-add-button'>
-                    <p>Add</p>
-                    <AiOutlinePlusCircle size={30}
-                        className="comments-add"
-                        onClick={() => {
-                            console.log("clicked")
-                        }}
-                    />
-                </div>
-                <div className='comment'>
-                    <div className='comments-user-container'>
-                        <TiDeleteOutline size={20}
-                            className="comments-delete"
-                            onClick={() => {
-                                console.log("clicked")
-                            }}
-                            />
-                        <p className='comment-user'>erik@erik.com</p>
-                    </div>
-                    <div className='comment-fields'>
-                        <input type="text" name="name" className='comments-comment-num' placeholder="Line number" size="7" />
-                        <textarea type="text" name="name" placeholder="Comment" className='comments-comment' />
-                    </div>
-                </div>
-                <div className='comment'>
-                    <div className='comments-user-container'>
-                        <TiDeleteOutline size={20}
-                            className="comments-delete"
-                            onClick={() => {
-                                console.log("clicked")
-                            }}
-                            />
-                        <p className='comment-user'>test@test.com</p>
-                    </div>
-                    <div className='comment-fields'>
-                        <input type="text" name="name" className='comments-comment-num' placeholder="Line number" size="7" />
-                        <textarea type="text" name="name" placeholder="Comment" className='comments-comment' />
-                    </div>
-                </div>
-            </div>
-        )
+        // setComments(Comments);
+
+        // setComments(
+        //     <div>
+        //         <h1 className='comments-title'>Comments</h1>
+        //         <div className='comments-add-button'>
+        //             <p>Add</p>
+        //             <AiOutlinePlusCircle size={30}
+        //                 className="comments-add"
+        //                 onClick={() => {
+        //                     console.log("clicked")
+        //                 }}
+        //             />
+        //         </div>
+        //         <div className='comment'>
+        //             <div className='comments-user-container'>
+        //                 <TiDeleteOutline size={20}
+        //                     className="comments-delete"
+        //                     onClick={() => {
+        //                         console.log("clicked")
+        //                     }}
+        //                     />
+        //                 <p className='comment-user'>erik@erik.com</p>
+        //             </div>
+        //             <div className='comment-fields'>
+        //                 <input type="text" name="name" className='comments-comment-num' placeholder="Line number" size="7" />
+        //                 <textarea type="text" name="name" placeholder="Comment" className='comments-comment' />
+        //             </div>
+        //         </div>
+
+
+
+
+
+        //         <div className='comment'>
+        //             <div className='comments-user-container'>
+        //                 <TiDeleteOutline size={20}
+        //                     className="comments-delete"
+        //                     onClick={() => {
+        //                         console.log("clicked")
+        //                     }}
+        //                     />
+        //                 <p className='comment-user'>test@test.com</p>
+        //             </div>
+        //             <div className='comment-fields'>
+        //                 <input type="text" name="name" className='comments-comment-num' placeholder="Line number" size="7" />
+        //                 <textarea type="text" name="name" placeholder="Comment" className='comments-comment' />
+        //             </div>
+        //         </div>
+        //     </div>
+        // )
 
     }, [props.currentDoc]);
 
@@ -177,7 +179,10 @@ export default function Editor(props) {
                     {/* {editor} */}
                 </div>
                 <div>
-                    {comments}
+                    <Comments
+                        currentDoc={props.currentDoc}
+                        currentUser={props.currentUser}
+                    />
                 </div>
             </div>
         </div>

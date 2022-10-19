@@ -60,6 +60,7 @@ export default function App() {
               socket={socket}
               />
             <Editor
+              currentUser={currentUser}
               currentDoc={currentDoc}
               setCurrentDoc={setCurrentDoc}
               socket={socket}
