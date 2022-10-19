@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { FaSave } from 'react-icons/fa';
 import { VscNewFile } from 'react-icons/vsc';
-import { AiFillPrinter, AiFillFilePdf } from 'react-icons/ai';
+import { AiFillPrinter } from 'react-icons/ai';
+import { FaCommentMedical } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
 import docModel from '../models/docModel';
 
@@ -16,6 +17,7 @@ export default function Toolbar(props) {
     const [docs, setDocs] = useState([]);   // is called second to make sure currentDoc has updated
     const [dropDownDocs, setDropDownDocs] = useState(null); // todo: Uppdatera loader (<select>) när nya docs skapas och ändrar namn
 
+    const [showComments, setShowComments] = useState(false);
 
 
     let timeout;
@@ -59,10 +61,27 @@ export default function Toolbar(props) {
         const nameHolder = document.getElementsByClassName('name')[0];
         const contentHolder = document.getElementsByClassName('ql-editor')[0];
 
+        const commentUsers = document.getElementsByClassName('comment-user');
+        const commentNums = document.getElementsByClassName('comments-comment-num');
+        const comments = document.getElementsByClassName('comments-comment');
+
+        let commentArr = [];
+        for (let i = 0; i < comments.length; i++) {
+            commentArr[i] = {
+                "user": commentUsers[i].innerHTML,
+                "commentNum": commentNums[i].value,
+                "comments": comments[i].value
+            }
+        }
+        console.log(commentArr);
+
+
+
         const docSave = {
             "_id": props.currentDoc["_id"],
             "name": nameHolder.value,
-            "content": contentHolder.innerHTML
+            "content": contentHolder.innerHTML,
+            "comments": commentArr
         }
 
         // let currDoc = { ...props.currentDoc };
@@ -124,6 +143,30 @@ export default function Toolbar(props) {
                             onClick={() => {
                                 // window.open("data:application/txt," + encodeURIComponent("Testing"), "_self");
                                 pdf.download();
+                            }}
+                        />
+                        <FaCommentMedical size={30}
+                            className="toolIcon"
+                            onMouseEnter={() => {
+                                // setCol("white");
+                            }}
+                            onMouseLeave={() => {
+                                setCol(originalCol);
+                            }}
+                            onClick={() => {
+                                console.log("show/hide comments")
+                                if (showComments) {
+                                    setShowComments(false);
+                                    setFlashMessage("Comments are hidden!");
+                                    clearTimeout(timeout);
+                                    timeout = setTimeout((resetFlashMessage), 1000);
+                                } else {
+                                    setShowComments(true);
+                                    setFlashMessage("Comments are shown on bottom of page!");
+                                    clearTimeout(timeout);
+                                    timeout = setTimeout((resetFlashMessage), 2000);
+                                }
+
                             }}
                         />
                         {dropDownDocs}

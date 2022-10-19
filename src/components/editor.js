@@ -9,13 +9,21 @@ import React, { useState, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
+import { AiOutlinePlusCircle, AiOutlineMinusSquare } from 'react-icons/ai';
+import { TiDeleteOutline } from 'react-icons/ti';
+
+
+
+
+
 
 
 export default function Editor(props) {
 
     const [name, setName] = useState("");
-
     const [content, setContent] = useState("");
+
+    const [comments, setComments] = useState("");
     // const [editor, setEditor] = useState(null);
     let updateCurrentDocOnChange = true;
 
@@ -56,6 +64,7 @@ export default function Editor(props) {
     props.socket.on("content", function (data) {
         setEditorContent(data.content, false);
     });
+
 
 
     // ONCHANGE FUNKTIONER
@@ -107,6 +116,51 @@ export default function Editor(props) {
         setName(props.currentDoc.name);
         setContent(props.currentDoc.content);
 
+        setComments(
+            <div>
+                <h1 className='comments-title'>Comments</h1>
+                <div className='comments-add-button'>
+                    <p>Add</p>
+                    <AiOutlinePlusCircle size={30}
+                        className="comments-add"
+                        onClick={() => {
+                            console.log("clicked")
+                        }}
+                    />
+                </div>
+                <div className='comment'>
+                    <div className='comments-user-container'>
+                        <TiDeleteOutline size={20}
+                            className="comments-delete"
+                            onClick={() => {
+                                console.log("clicked")
+                            }}
+                            />
+                        <p className='comment-user'>erik@erik.com</p>
+                    </div>
+                    <div className='comment-fields'>
+                        <input type="text" name="name" className='comments-comment-num' placeholder="Line number" size="7" />
+                        <textarea type="text" name="name" placeholder="Comment" className='comments-comment' />
+                    </div>
+                </div>
+                <div className='comment'>
+                    <div className='comments-user-container'>
+                        <TiDeleteOutline size={20}
+                            className="comments-delete"
+                            onClick={() => {
+                                console.log("clicked")
+                            }}
+                            />
+                        <p className='comment-user'>test@test.com</p>
+                    </div>
+                    <div className='comment-fields'>
+                        <input type="text" name="name" className='comments-comment-num' placeholder="Line number" size="7" />
+                        <textarea type="text" name="name" placeholder="Comment" className='comments-comment' />
+                    </div>
+                </div>
+            </div>
+        )
+
     }, [props.currentDoc]);
 
 
@@ -118,13 +172,12 @@ export default function Editor(props) {
             <div className="edit-prev-container">
                 <div className="editor">
                     <input type="text" className="name" name="name" value={name} onChange={changeName} />
-                    <ReactQuill theme="snow" value={content} onChange={changeContent} class="quilly" />
+                    <ReactQuill theme="snow" value={content} onChange={changeContent} className="quilly" />
                     {/* <TrixEditor value={content} /> */}
                     {/* {editor} */}
                 </div>
                 <div>
-                    {/* <h2>Preview</h2>
-                    <div>{Parse(content)}</div> */}
+                    {comments}
                 </div>
             </div>
         </div>

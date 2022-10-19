@@ -36,6 +36,7 @@ h2 {
   text-align: center;
   font-size: 2rem;
   font-weight: bold;
+  padding: 8px 14px;
   /* border: none; */
 }
 
@@ -44,6 +45,79 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.ql-editor {
+  counter-reset: line;
+  padding-left: 0;
+}
+
+.ql-editor p:before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  border-right: 1px solid #ddd;
+  padding: 0 .5em;
+  margin-right: .5em;
+  color: #888
+}
+
+.comments-title {
+  color: rgb(119, 119, 119);
+  font-weight: normal;
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
+.comment {
+  margin-bottom: 20px;
+}
+
+.comment-user {
+  margin: 0;
+  margin-right: 10px;
+  background-color: #e8e8e8;
+  font-weight: bold;
+  font-size: 0.8rem;
+  padding: 4px 7px;
+}
+
+.comments-add-button {
+  display: flex;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.comments-add {
+  align-self: center;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.comments-user-container {
+  display: flex;
+  margin-bottom: 7px;
+}
+
+.comment-fields {
+  margin-left: 30px;
+}
+
+.comments-comment-num {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.comments-comment {
+  height: 50px;
+  width: 600px;
+  resize: none;
+}
+
+.comments-delete {
+  align-self: center;
+  margin: 0 10px 0 0;
+  cursor: pointer;
 }
 
 .toolbar {

@@ -11,6 +11,7 @@ const pdf = {
         const name = document.getElementsByClassName('name')[0].value;
 
         const content = document.getElementsByClassName('ql-editor')[0].innerHTML;
+
         const parsedContent = Parse(content).props.children;
 
         let doc = new jsPDF("portrait", 'pt', 'A4');
