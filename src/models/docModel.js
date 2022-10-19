@@ -38,9 +38,6 @@ const docModel = {
             })
             const result = await response.json();
 
-            console.log("HÄÄÄR");
-            console.log(result.data.result);
-
             return result.data.result;
         }
 
