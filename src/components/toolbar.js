@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FaSave } from 'react-icons/fa';
 import { VscNewFile } from 'react-icons/vsc';
 import { AiFillPrinter } from 'react-icons/ai';
-import { FaCommentMedical } from 'react-icons/fa';
+import { FaComment } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
 import docModel from '../models/docModel';
 
@@ -17,7 +17,7 @@ export default function Toolbar(props) {
     const [docs, setDocs] = useState([]);   // is called second to make sure currentDoc has updated
     const [dropDownDocs, setDropDownDocs] = useState(null); // todo: Uppdatera loader (<select>) när nya docs skapas och ändrar namn
 
-    const [showComments, setShowComments] = useState(false);
+    // const [showComments, setShowComments] = useState(false);
 
 
     let timeout;
@@ -81,7 +81,7 @@ export default function Toolbar(props) {
             "_id": props.currentDoc["_id"],
             "name": nameHolder.value,
             "content": contentHolder.innerHTML,
-            "comment": commentArr
+            "comments": commentArr
         }
 
         // let currDoc = { ...props.currentDoc };
@@ -145,7 +145,7 @@ export default function Toolbar(props) {
                                 pdf.download();
                             }}
                         />
-                        <FaCommentMedical size={30}
+                        <FaComment size={30}
                             className="toolIcon"
                             onMouseEnter={() => {
                                 // setCol("white");
@@ -154,14 +154,16 @@ export default function Toolbar(props) {
                                 setCol(originalCol);
                             }}
                             onClick={() => {
-                                console.log("show/hide comments")
+                                // console.log(props.showComments);
+                                const showComments = props.showComments;
+                                // console.log(showComments);
                                 if (showComments) {
-                                    setShowComments(false);
+                                    props.setShowComments(false);
                                     setFlashMessage("Comments are hidden!");
                                     clearTimeout(timeout);
                                     timeout = setTimeout((resetFlashMessage), 1000);
                                 } else {
-                                    setShowComments(true);
+                                    props.setShowComments(true);
                                     setFlashMessage("Comments are shown on bottom of page!");
                                     clearTimeout(timeout);
                                     timeout = setTimeout((resetFlashMessage), 2000);

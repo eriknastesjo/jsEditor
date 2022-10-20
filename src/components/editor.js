@@ -22,6 +22,9 @@ export default function Editor(props) {
     // const [editor, setEditor] = useState(null);
     let updateCurrentDocOnChange = true;
 
+    const [commentsArray, setCommentsArray] = useState([]);     // utifall toolbar gömmer comments så sparas arrayen här
+
+
 
     // SKICKA VIA SOCKET TILL SERVER
     // =========================================
@@ -105,64 +108,21 @@ export default function Editor(props) {
     // =========================================
 
     useEffect(() => {
-        // setEditorName(props.currentDoc.name);
-        // setEditorContent(props.currentDoc.content);
-
         setName(props.currentDoc.name);
         setContent(props.currentDoc.content);
 
-        // setComments(Comments);
-
-        // setComments(
-        //     <div>
-        //         <h1 className='comments-title'>Comments</h1>
-        //         <div className='comments-add-button'>
-        //             <p>Add</p>
-        //             <AiOutlinePlusCircle size={30}
-        //                 className="comments-add"
-        //                 onClick={() => {
-        //                     console.log("clicked")
-        //                 }}
-        //             />
-        //         </div>
-        //         <div className='comment'>
-        //             <div className='comments-user-container'>
-        //                 <TiDeleteOutline size={20}
-        //                     className="comments-delete"
-        //                     onClick={() => {
-        //                         console.log("clicked")
-        //                     }}
-        //                     />
-        //                 <p className='comment-user'>erik@erik.com</p>
-        //             </div>
-        //             <div className='comment-fields'>
-        //                 <input type="text" name="name" className='comments-comment-num' placeholder="Line number" size="7" />
-        //                 <textarea type="text" name="name" placeholder="Comment" className='comments-comment' />
-        //             </div>
-        //         </div>
+    }, [props.currentDoc]);
 
 
 
-
-
-        //         <div className='comment'>
-        //             <div className='comments-user-container'>
-        //                 <TiDeleteOutline size={20}
-        //                     className="comments-delete"
-        //                     onClick={() => {
-        //                         console.log("clicked")
-        //                     }}
-        //                     />
-        //                 <p className='comment-user'>test@test.com</p>
-        //             </div>
-        //             <div className='comment-fields'>
-        //                 <input type="text" name="name" className='comments-comment-num' placeholder="Line number" size="7" />
-        //                 <textarea type="text" name="name" placeholder="Comment" className='comments-comment' />
-        //             </div>
-        //         </div>
-        //     </div>
-        // )
-
+    // UPDATING COMMENTS WHEN LOADING NEW DOC
+    // =========================================
+    useEffect(() => {
+        if (props.currentDoc.comments != null) {
+            setCommentsArray(props.currentDoc.comments);
+        } else {
+            setCommentsArray([]);
+        }
     }, [props.currentDoc]);
 
 
@@ -175,14 +135,19 @@ export default function Editor(props) {
                 <div className="editor">
                     <input type="text" className="name" name="name" value={name} onChange={changeName} />
                     <ReactQuill theme="snow" value={content} onChange={changeContent} className="quilly" />
-                    {/* <TrixEditor value={content} /> */}
-                    {/* {editor} */}
                 </div>
                 <div>
-                    <Comments
-                        currentDoc={props.currentDoc}
-                        currentUser={props.currentUser}
-                    />
+                    {
+                        props.showComments == true &&
+                        <Comments
+                            currentDoc={props.currentDoc}
+                            currentUser={props.currentUser}
+                            commentsArray={commentsArray}
+                            setCommentsArray={setCommentsArray}
+
+                        />
+                    }
+
                 </div>
             </div>
         </div>

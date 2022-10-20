@@ -15,6 +15,8 @@ export default function App() {
 
   const [currentDoc, setCurrentDoc] = useState(null);
 
+  const [showComments, setShowComments] = useState(false);
+
   const [currentUser, setCurrentUser] = useState(null);
   const [currentToken, setCurrentToken] = useState("");
 
@@ -57,12 +59,15 @@ export default function App() {
               currentUser={currentUser}
               currentDoc={currentDoc}
               setCurrentDoc={setCurrentDoc}
+              showComments={showComments}
+              setShowComments={setShowComments}
               socket={socket}
               />
             <Editor
               currentUser={currentUser}
               currentDoc={currentDoc}
               setCurrentDoc={setCurrentDoc}
+              showComments={showComments}
               socket={socket}
             />
           </div>
