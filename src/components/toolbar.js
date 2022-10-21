@@ -3,7 +3,10 @@ import { FaSave } from 'react-icons/fa';
 import { VscNewFile } from 'react-icons/vsc';
 import { AiFillPrinter } from 'react-icons/ai';
 import { FaComment } from 'react-icons/fa';
+import { RiTeamFill } from 'react-icons/ri';
+
 import { IconContext } from 'react-icons';
+
 import docModel from '../models/docModel';
 
 import pdf from "./pdf";
@@ -15,7 +18,7 @@ export default function Toolbar(props) {
     const originalCol = "#272727";
     const [currentDoc, setCurrentDoc] = useState([]);   // is called first
     const [docs, setDocs] = useState([]);   // is called second to make sure currentDoc has updated
-    const [dropDownDocs, setDropDownDocs] = useState(null); // todo: Uppdatera loader (<select>) när nya docs skapas och ändrar namn
+    const [dropDownDocs, setDropDownDocs] = useState(null);
 
     // const [showComments, setShowComments] = useState(false);
 
@@ -73,9 +76,9 @@ export default function Toolbar(props) {
                 "comment": comment[i].value
             }
         }
-        console.log(commentArr);
 
-
+        // Observe
+        // allowed users is not saved here but instead in invite.js through inviteModel.js
 
         const docSave = {
             "_id": props.currentDoc["_id"],
@@ -84,15 +87,9 @@ export default function Toolbar(props) {
             "comments": commentArr
         }
 
-        // let currDoc = { ...props.currentDoc };
-        // currDoc.content = props.currentContent;
-
-        // await docModel.updateDoc(currDoc);
-
         await docModel.updateDoc(docSave);
 
         setCurrentDoc(docSave); // OBS mest för att uppdatera dropdown!
-        // props.setCurrentDoc(currDoc);
     };
 
 
@@ -154,9 +151,7 @@ export default function Toolbar(props) {
                                 setCol(originalCol);
                             }}
                             onClick={() => {
-                                // console.log(props.showComments);
                                 const showComments = props.showComments;
-                                // console.log(showComments);
                                 if (showComments) {
                                     props.setShowComments(false);
                                     setFlashMessage("Comments are hidden!");
@@ -164,7 +159,31 @@ export default function Toolbar(props) {
                                     timeout = setTimeout((resetFlashMessage), 1000);
                                 } else {
                                     props.setShowComments(true);
-                                    setFlashMessage("Comments are shown on bottom of page!");
+                                    setFlashMessage("Comments are shown on the bottom of page!");
+                                    clearTimeout(timeout);
+                                    timeout = setTimeout((resetFlashMessage), 2000);
+                                }
+
+                            }}
+                        />
+                        <RiTeamFill size={30}
+                            className="toolIcon"
+                            onMouseEnter={() => {
+                                // setCol("white");
+                            }}
+                            onMouseLeave={() => {
+                                setCol(originalCol);
+                            }}
+                            onClick={() => {
+                                const showInvite = props.showInvite;
+                                if (showInvite) {
+                                    props.setShowInvite(false);
+                                    setFlashMessage("Invitation field is hidden!");
+                                    clearTimeout(timeout);
+                                    timeout = setTimeout((resetFlashMessage), 1000);
+                                } else {
+                                    props.setShowInvite(true);
+                                    setFlashMessage("Invitation field is shown below editor!");
                                     clearTimeout(timeout);
                                     timeout = setTimeout((resetFlashMessage), 2000);
                                 }
@@ -172,15 +191,6 @@ export default function Toolbar(props) {
                             }}
                         />
                         {dropDownDocs}
-                        {/* <PdfLink/> */}
-
-
-
-                        {/* <select id= "select-id-toolbar" onChange={ findDoc }>
-                            <option value="-99" key="0">Choose a document</option>
-                            {docs.map((doc, index) => <option value={doc._id} key={index}>{doc.name}</option>)}
-
-                        </select> */}
 
                     </IconContext.Provider>
                 </div>

@@ -15,9 +15,11 @@ export default function App() {
 
   const [currentDoc, setCurrentDoc] = useState(null);
 
+  const [showInvite, setShowInvite] = useState(false);
   const [showComments, setShowComments] = useState(false);
 
   const [currentUser, setCurrentUser] = useState(null);
+  const [allowedUsers, setAllowedUsers] = useState(null);   // to be able to save invited user without document being updated or saved
   const [currentToken, setCurrentToken] = useState("");
 
   const [socket, setSocket] = useState(null);
@@ -59,6 +61,9 @@ export default function App() {
               currentUser={currentUser}
               currentDoc={currentDoc}
               setCurrentDoc={setCurrentDoc}
+              showInvite={showInvite}
+              setShowInvite={setShowInvite}
+              allowedUsers={allowedUsers}
               showComments={showComments}
               setShowComments={setShowComments}
               socket={socket}
@@ -67,6 +72,9 @@ export default function App() {
               currentUser={currentUser}
               currentDoc={currentDoc}
               setCurrentDoc={setCurrentDoc}
+              showInvite={showInvite}
+              allowedUsers={allowedUsers}
+              setAllowedUsers={setAllowedUsers}
               showComments={showComments}
               socket={socket}
             />

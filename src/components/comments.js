@@ -76,8 +76,8 @@ export default function Comments(props) {
                                 <p className='comment-user'>{comment.user}</p>
                             </div>
                             <div className='comment-fields'>
-                                <input type="text" name="name" className='comments-comment-num' value={comment.commentNum} placeholder="Line number" size="7" onChange={editedComment}/>
-                                <textarea type="text" name="name" value={comment.comment} placeholder="Comment" className='comments-comment' onChange={editedComment}/>
+                                <input type="text" name="comment-num" className='comments-comment-num' value={comment.commentNum} placeholder="Line number" size="7" onChange={editedComment}/>
+                                <textarea type="text" name="comment" value={comment.comment} placeholder="Comment" className='comments-comment' onChange={editedComment}/>
                             </div>
                         </div>
 

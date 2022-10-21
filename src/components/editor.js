@@ -10,6 +10,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 import Comments from './comments';
+import Invite from './invite';
 
 
 
@@ -110,7 +111,7 @@ export default function Editor(props) {
     useEffect(() => {
         setName(props.currentDoc.name);
         setContent(props.currentDoc.content);
-
+        props.setAllowedUsers(props.currentDoc.allowed_users);
     }, [props.currentDoc]);
 
 
@@ -138,16 +139,23 @@ export default function Editor(props) {
                 </div>
                 <div>
                     {
+                        props.showInvite == true &&
+                        <Invite
+                            currentDoc={props.currentDoc}
+                            currentUser={props.currentUser}
+                            allowedUsers={props.allowedUsers}
+                            setAllowedUsers={props.setAllowedUsers}
+                        />
+                    }
+                    {
                         props.showComments == true &&
                         <Comments
                             currentDoc={props.currentDoc}
                             currentUser={props.currentUser}
                             commentsArray={commentsArray}
                             setCommentsArray={setCommentsArray}
-
                         />
                     }
-
                 </div>
             </div>
         </div>

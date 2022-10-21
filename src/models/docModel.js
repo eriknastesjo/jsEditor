@@ -67,6 +67,20 @@ const docModel = {
         return result.data.result;
 
     },
+    addUser: async function addUser(user) {
+
+        const response = await fetch(`${config.base_url}/addUser`, {
+            body: JSON.stringify(user),
+            headers: {
+                'content-type': 'application/json'
+            },
+            method: 'POST'
+        })
+        const result = await response.json();
+
+        return result.data.result;
+
+    },
     findDoc: async function findDoc(id) {
 
         // Utan att använda graphql
@@ -91,8 +105,6 @@ const docModel = {
         // Använder graphql
         // ==========================
 
-        // Observera, vi slipper hämta allowed_users som vi inte behöver här!
-
         const response = await fetch(`${config.base_url}/graphql`, {
             body: JSON.stringify({
                 query: `{
@@ -106,6 +118,7 @@ const docModel = {
                         commentNum
                         comment
                         }
+                        allowed_users
                     }
                 }`
             }),
@@ -117,7 +130,6 @@ const docModel = {
         })
 
         const result = await response.json();
-
 
         return result.data.doc;
 
