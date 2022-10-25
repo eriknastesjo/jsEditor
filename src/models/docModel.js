@@ -114,9 +114,9 @@ const docModel = {
                         name
                         content
                         comments {
-                        user
-                        commentNum
-                        comment
+                            user
+                            commentNum
+                            comment
                         }
                         allowed_users
                     }
